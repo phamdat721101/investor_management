@@ -8,14 +8,13 @@
                 <v-row>
                     <v-col cols="12">
                         <v-form ref="createEmployeeForm">
-                            <v-text-field
+                            <v-select
                                 v-model="profit.pid"
-                                outlined
-                                name="pid"
-                                label="Project"
-                                id="pid"
                                 :rules="rules.requiredInput"
-                            ></v-text-field>
+                                outlined
+                                :items="project"
+                                label="Project"
+                            ></v-select>
                             <v-text-field
                                 v-model="profit.amount"
                                 :rules="rules.requiredInput"
@@ -61,7 +60,8 @@ export default {
         this.requestInvestors();
     },
     data() {
-        return {           
+        return {         
+            project:[1,2],  
             profit: {
                 pid: '',
                 amount: '',
@@ -88,16 +88,14 @@ export default {
             }
         },
         requestInvestors() {
-            this.loading = true;
+            //this.loading = true;            
             this.$store
-                .dispatch('Investors/getById', this.$route.params.id)
-                .then(response => {
-                    this.employee.first_name = response.data.first_name;
-                    this.employee.last_name = response.data.last_name;
-                    this.employee.email = response.data.email;                    
+                .dispatch('Projects/get')
+                .then(response => {                    
+                    this.project = response.data.map(dt => {return dt.id});
                 })
-                .finally(() => {
-                    this.loading = false;
+                .catch(error => {
+                    console.log(error);
                 });
         }
     }

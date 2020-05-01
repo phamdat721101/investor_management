@@ -11,7 +11,7 @@
                     <template v-slot:activator="{ on }">
                         <v-btn text v-on="on">
                             <v-icon class="mr-2">fa-user</v-icon>
-                            {{ $store.getters['auth/getEmployee'].first_name }}
+                            Admin
                         </v-btn>
                     </template>
                     <v-list>

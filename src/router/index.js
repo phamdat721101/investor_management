@@ -28,10 +28,10 @@ const routes = [{
         path: 'logout',
         name: 'logout',
         component: () => import('@/views/Auth/Logout'),
-        // meta: {
-        //   requiredAuth: true,
-        //   pageTitle: 'Logout'
-        // }
+        meta: {
+          requiredAuth: true,
+          pageTitle: 'Logout'
+        }
       }
     ]
   },
@@ -40,22 +40,22 @@ const routes = [{
     component: () => import('@/layouts/Main'),
     children: [{
       path: 'list',
-      name: 'list employee',
+      name: 'list investor',
       component: () => import('@/views/Investors/List'),
-      // meta: {
-      //   requiredAuth: true,
-      //   pageTitle: 'Investors',
-      //   parent: 'Investors'
-      // }
+      meta: {
+        requiredAuth: true,
+        pageTitle: 'Investors',
+        parent: 'Investors'
+      }
     }, {
       path: 'edit/:id',
-      name: 'edit employee',
+      name: 'edit investor',
       component: () => import('@/views/Investors/Edit'),
-      // meta: {
-      //   requiredAuth: true,
-      //   pageTitle: 'Edit Employee',
-      //   parent: 'Investors'
-      // }
+      meta: {
+        requiredAuth: true,
+        pageTitle: 'Edit Employee',
+        parent: 'Investors'
+      }
     }]
   },
   {
@@ -65,31 +65,31 @@ const routes = [{
         path: 'list',
         name: 'list projects',
         component: () => import('@/views/Projects/List'),
-        // meta: {
-        //   requiredAuth: true,
-        //   pageTitle: 'Tickets',
-        //   parent: 'tickets'
-        // }
+        meta: {
+          requiredAuth: true,
+          pageTitle: 'Projects',
+          parent: 'projects'
+        }
       },
       {
         path: 'create',
         name: 'create projects',
         component: () => import('@/views/Projects/Create'),
-        // meta: {
-        //   requiredAuth: true,
-        //   pageTitle: 'Create ticket',
-        //   parent: 'tickets'
-        // }
+        meta: {
+          requiredAuth: true,
+          pageTitle: 'Create project',
+          parent: 'projects'
+        }
       },
       {
         path: 'view/:id',
         name: 'view projects',
         component: () => import('@/views/Projects/View'),
-        // meta: {
-        //   requiredAuth: true,
-        //   pageTitle: 'View projects',
-        //   parent: 'projects'
-        // }
+        meta: {
+          requiredAuth: true,
+          pageTitle: 'View projects',
+          parent: 'projects'
+        }
       }
     ]
   },  

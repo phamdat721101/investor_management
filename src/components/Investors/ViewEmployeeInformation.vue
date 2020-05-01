@@ -4,8 +4,8 @@
     </div>
 </template>
 <script>
-export default {
-    props: ['options'],    
+export default {    
+    props: ['investor'],    
     data(){
         return {
             stockOptions: {
@@ -16,23 +16,7 @@ export default {
                     spacingRight: 5
                 },                              
                 rangeSelector: {
-                    buttons: [{
-                        type: 'month',
-                        count: 1,
-                        text: '1m',
-                        events: {
-                            click: function() {
-                                alert('licked button');
-                            }
-                        }
-                    },{
-                        type: 'month',
-                        count: 3,
-                        text: '3m'
-                    },{
-                        type: 'all',
-                        text: 'All'
-                    }]                
+                                  
                 },                                
                 series: [{
                     data: []
@@ -42,16 +26,18 @@ export default {
     },
     methods: {
         async load() {
-            const series = this.$children[0].chart.series[0];
-            const initialData = [1,2,3,4,5,6,7,8,9,10,21,4,6,7,2,0.2];            
-            series.setData(initialData);            
-        }
+            const series = this.$children[0].chart.series[0];  
+            var initialData ;
+            this.$store.dispatch('Investors/getProfit', this.investor.projectId).then(response => {    
+                var amountProfit = response.data[0].amount;
+                series.setData([{y: amountProfit, x: 1523998693000}, {y: amountProfit - 3, x: 1524002293000}, {y: 122, x: 1524005893000}, {y: 7, x: 1524088693000}, {y: 4,x: 1524175093000}, {y: 5, x: 1524261493000}]);            
+            });                                                                                                      
+        }        
     },
-    mounted() {
-        this.load();
+    mounted() {        
+        this.load();        
     },
     destroyed(){
-
     }
 };
 </script>

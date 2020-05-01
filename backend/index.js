@@ -1,6 +1,5 @@
 var express = require('express');
 const bodyParser = require("body-parser");
-// const Bcrypt = require("bcryptjs");
 var mysql = require('mysql');
 var app = express();
 var cors = require('cors');
@@ -17,7 +16,7 @@ var con = mysql.createConnection({
 con.connect(function(err) {
     if (err) throw err;    
     /*---API for user---*/   
-    app.post('/user', function (req, res) {            
+    app.post('/investor', function (req, res) {            
       name = req.body.name;
       projectId = req.body.projectId
       investmentPercentage = req.body.investmentPercentage;
@@ -28,7 +27,7 @@ con.connect(function(err) {
       res.sendStatus(200);      
     });
 
-    app.get('/user', function(req, res){
+    app.get('/investor', function(req, res){
       query_select = "SELECT * From investorinproject";
       con.query(query_select, function (err, result, fields) {
         if (err) throw err;
@@ -40,56 +39,16 @@ con.connect(function(err) {
         res.send(myJSONstring);
       });
     });
-    
-    app.get('/user_project/:pid', function(req, res){
-      pid = req.params.pid;
-      query_select = "SELECT * From user where PID = '"+ pid +"'";
+        
+    app.get('/investor/:id', function(req, res){
+      id = req.params.id;
+      query_select = "SELECT * From investorinproject where 	investorId  = '"+ id +"'";
       con.query(query_select, function (err, result, fields) {
-        if (err) throw err;
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'content-type');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');            
-        res.contentType('application/json');
+        if (err) throw err;        
         myJSONstring = JSON.stringify(result);
         res.send(myJSONstring);
       });
-    });
-
-    app.get('/user/:id', function(req, res){
-      id = req.params.id;
-      query_select = "SELECT * From user where ID = '"+ id +"'";
-      con.query(query_select, function (err, result, fields) {
-        if (err) throw err;
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'content-type');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');            
-        res.contentType('application/json');
-        myJSONstring = JSON.stringify(result);
-        res.send(myJSONstring);
-      });
-    });
-    //assign project for employee
-    app.put('/assign_user/:id', function(req, res){
-      id = req.params.id;
-      name = req.body.name;      
-      query_update = "UPDATE user SET PID = '"+ name +"' where ID = '"+ id +"'";
-      con.query(query_update, function (err, result, fields) {
-        if (err) throw err;
-      });
-      res.sendStatus(200);
-    });
-    //update information of employee
-    app.put('/user/:id', function(req, res){
-      id = req.params.id;
-      name = req.body.name;
-      phone = req.body.phone;
-      birthday = req.body.birthday;     
-      query_update = "UPDATE user SET name = '"+ name +"', phone = '"+ phone +"', birthday = '"+ birthday +"' where ID = '"+ id +"'";
-      con.query(query_update, function (err, result, fields) {
-        if (err) throw err;
-      });
-      res.sendStatus(200);
-    });
+    });        
 
     /*---API for project---*/ 
     app.post('/project', function (req, res) {      
@@ -102,43 +61,37 @@ con.connect(function(err) {
       });
       res.sendStatus(200);      
     });
+
     app.get('/project', function(req, res){
       query_select = "SELECT * From project";
       con.query(query_select, function (err, result, fields) {
-        if (err) throw err;
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'content-type');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');            
-        res.contentType('application/json');
+        if (err) throw err;        
         myJSONstring = JSON.stringify(result);
         res.send(myJSONstring);
       });
     });    
+
     app.get('/project/:id', function(req, res){
       id = req.params.id;
       query_select = "SELECT * From project where PID = '"+ id +"'";
       con.query(query_select, function (err, result, fields) {
-        if (err) throw err;
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'content-type');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');            
-        res.contentType('application/json');
+        if (err) throw err;        
         myJSONstring = JSON.stringify(result);
         res.send(myJSONstring);
       });
-    });
-    app.put('/project/:id', function(req, res){
-      id = req.params.id;
-      name = req.body.name;
-      description = req.body.description;           
-      query_update = "UPDATE project SET name = '"+ name +"', description = '"+ description +"' where PID = '"+ id +"'";
-      con.query(query_update, function (err, result, fields) {
-        if (err) throw err;
-      });
-      res.sendStatus(200);
-    });
+    });    
 
     /*-API for update profit-*/
+    app.get('/profit/:id', function(req, res){
+      id = req.params.id;
+      query_select = "SELECT * From investorprofit WHERE investorProjectId = '"+ id +"'";
+      con.query(query_select, function (err, result, fields) {
+        if (err) throw err;       
+        myJSONstring = JSON.stringify(result);
+        res.send(myJSONstring);
+      });
+    });  
+
     app.post('/profit', function(req,res){
       pid = req.body.pid;
       amount = req.body.amount;

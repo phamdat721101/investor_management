@@ -27,10 +27,10 @@
                                     small
                                     color="secondary"
                                     :to="{
-                                        name: 'edit employee',
-                                        params: { id: item.id_employee }
+                                        name: 'edit investor',
+                                        params: { id: item.id_investor }
                                     }"
-                                    >Edit</v-btn
+                                    >Update Profit</v-btn
                                 >                                
                             </template>
                         </v-data-table>
@@ -51,11 +51,11 @@
             </v-dialog>
         </v-row>
         <v-dialog
-            v-model="viewEmployeeDialog"
-            max-width="400"
+            v-model="viewInvestorDialog"
+            max-width="600"
             transition="dialog-transition"
         >
-            <view-employee-information @close-dialog="viewEmployeeDialog = false" :employee="employee"/>
+            <view-employee-information @close-dialog="viewInvestorDialog = false" :investor="investor"/>
         </v-dialog>
     </div>
 </template>
@@ -78,8 +78,8 @@ export default {
                 { text: 'Actions', value: 'actions', sortable: false }
             ],
             showCreationEmployeDialog: false,
-            employee:{},
-            viewEmployeeDialog:false
+            investor:{},
+            viewInvestorDialog:false
         };
     },
     methods: {
@@ -89,9 +89,9 @@ export default {
         openCreationEmployeDialog() {
             this.showCreationEmployeDialog = true;
         },
-        openViewEmployeeInformationDialog(employee){
-            this.employee = employee;
-            this.viewEmployeeDialog = true;
+        openViewEmployeeInformationDialog(investor){                     
+            this.investor = investor;
+            this.viewInvestorDialog = true;
         },
         requestInvestors() {
             this.$store.dispatch('Investors/get').then(response => {

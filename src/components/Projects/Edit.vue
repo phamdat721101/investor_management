@@ -38,13 +38,7 @@ export default {
                     id_Project: this.Project.id_Project,
                     Project: { status: this.selectStatus }
                 })
-                .then(response => {
-                    // this.$store.commit('snackbar/setSnackbar', {
-                    //     show: true,
-                    //     message: 'Project updated',
-                    //     color: 'success',
-                    //     top: true
-                    // });
+                .then(response => {                    
                     this.$emit('Project-updated')
                 })
                 .catch(error => {

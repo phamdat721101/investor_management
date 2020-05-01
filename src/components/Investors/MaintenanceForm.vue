@@ -2,7 +2,7 @@
     <div>
         <v-card>
             <v-card-title class="headline">
-                Create employee
+                Create investor
             </v-card-title>
             <v-card-text>
                 <v-row>
@@ -74,23 +74,10 @@ export default {
                 this.loading = true;
                 this.$store
                     .dispatch('Investors/create', this.employee)
-                    .then(response => {
-                        // this.$store.commit('snackbar/setSnackbar', {
-                        //     show: true,
-                        //     message: 'Employee created',
-                        //     color: 'success',
-                        //     top: true
-                        // });
+                    .then(response => {                        
                         this.$emit('confirm-creation');
                     })
-                    .catch(error => {
-                        // this.$store.commit('snackbar/setSnackbar', {
-                        //     show: true,
-                        //     message:
-                        //         'Opss an error ocurred, please try again later',
-                        //     color: 'error',
-                        //     top: true
-                        // });
+                    .catch(error => {                        
                         console.log(error);
                     }).finally(()=>{
                         this.loading = false

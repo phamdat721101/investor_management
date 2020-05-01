@@ -10,7 +10,7 @@
                         <v-text-field
                             v-model="email"
                             label="Email"
-                            placeholder="jhondoe@domain.com"
+                            placeholder="admin@gmail.com"
                             outlined
                             :rules="rules.email"
                         ></v-text-field>
@@ -62,7 +62,7 @@ export default {
                             response.data.token
                         );
                         window.localStorage.setItem(
-                            'employee',
+                            'investors',
                             JSON.stringify(response.data)
                         );
                         this.$store.commit('auth/SET_INVESTOR', response.data);
@@ -71,13 +71,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error);
-                    this.loading = false;
-                    this.$store.commit('snackbar/setSnackbar', {
-                        show: true,
-                        message: 'Wrong credentials',
-                        color: 'error',
-                        top: true
-                    });
+                    this.loading = false;                    
                 });            
         }
     }

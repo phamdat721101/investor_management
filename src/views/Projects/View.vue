@@ -78,16 +78,7 @@
                     </v-card>
                 </v-tab-item>
             </v-tabs-items>
-        </v-card>
-        <v-card class="mt-2">
-            <v-card-title primary-title>
-                Notes
-            </v-card-title>
-            <v-card-text>
-                <notes-list />
-                <create-notes @note-created="requestNotes()" :Project="Project" />
-            </v-card-text>
-        </v-card>
+        </v-card>        
         <delete-dialog
             title="Remove"
             message="Are you sure you want to remove this employee?"
@@ -119,20 +110,16 @@
 </template>
 <script>
 import deleteDialog from '@/components/Interface/DeleteDialog';
-import notesList from '@/components/Projects/Notes/List';
-import createNotes from '@/components/Projects/Notes/Create';
 import moment from 'moment';
 
 export default {
     components: {
         deleteDialog,                
-        notesList,
-        createNotes,
+        notesList,        
         editProject
     },
     async mounted() {        
-        await this.requestProject();        
-        this.requestNotes();
+        await this.requestProject();                
     },
     data() {
         return {
@@ -166,13 +153,7 @@ export default {
                     idProject: this.Project.id_Project,
                     idEmployee: this.tempEmployeForRemove.id_employee
                 })
-                .then(response => {
-                    this.$store.commit('snackbar/setSnackbar', {
-                        show: true,
-                        message: 'Employee remove',
-                        color: 'success',
-                        top: true
-                    });
+                .then(response => {                    
                     this.requestProject();
                 })
                 .catch(error => {
@@ -204,17 +185,7 @@ export default {
         },
         parseTimeStamp(timeStamp, format) {
             return moment(timeStamp).format(format);
-        },
-        requestNotes() {
-            this.$store
-                .dispatch('notes/get')
-                .then(response => {
-                    this.$store.commit('notes/SET_NOTES', response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
+        },        
         confirmProjectUpdated(){
             this.requestProject()
             this.editProjectDialog = false

@@ -49,23 +49,7 @@
             :show-dialog="showDeleteDialog"
             @confirm-delete="deleteProject()"
             @cancel-delete="showDeleteDialog = false"
-        />
-        <v-dialog v-model="addNotedialog" max-width="400">
-            <v-card>
-                <v-card-title>
-                    <v-spacer></v-spacer>
-                    <v-icon class="float-right" @click="addNotedialog = false"
-                        >fa-window-close</v-icon
-                    >
-                </v-card-title>
-                <v-card-text>
-                    <create-notes
-                        @note-created="addNotedialog = false"
-                        :Project="TempProjectForAddNote"
-                    />
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+        />        
         <v-dialog v-model="editProjectDialog" max-width="400">
             <v-card>
                 <v-card-title>
@@ -88,12 +72,11 @@
 </template>
 <script>
 import deleteDialog from '@/components/Interface/DeleteDialog';
-import createNotes from '@/components/Projects/Notes/Create';
 import editProject from '@/components/Projects/Edit';
 import moment from 'moment';
 
 export default {
-    components: { deleteDialog, createNotes, editProject },
+    components: { deleteDialog, editProject },
     mounted() {
         this.requestProjects();
     },
@@ -106,8 +89,7 @@ export default {
                 { text: 'Actions', value: 'actions' }
             ],
             showDeleteDialog: false,
-            tempProjectToDelete: {},
-            addNotedialog: false,
+            tempProjectToDelete: {},            
             TempProjectForAddNote: '',
             editProjectDialog: false,
             tempProjectForEdit: ''
@@ -138,11 +120,7 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-        },
-        showAddNoteDialog(Project) {
-            this.TempProjectForAddNote = Project;
-            this.addNotedialog = true;
-        },
+        },        
         showEditProjectDialog(Project) {
             this.tempProjectForEdit = Project;
             this.editProjectDialog = true;
