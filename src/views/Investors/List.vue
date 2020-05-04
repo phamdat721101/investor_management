@@ -10,6 +10,15 @@
                             @click="openCreationEmployeDialog()"
                             >Create Investor</v-btn
                         >
+                        <v-btn class="float-center" color="secondary" @click="openViewEmployeeInformationDialog()">View</v-btn>
+                        <v-btn
+                            class="float-left"
+                            color="secondary"
+                            :to="{
+                                name: 'edit investor'                                
+                            }"
+                            >Update Profit</v-btn
+                        >                        
                     </v-col>
                     <v-col cols="12">
                         <v-data-table
@@ -20,19 +29,9 @@
                             <template v-slot:item.create_at="{ item }">
                                 {{ parseDate(item.create_at, 'DD/MM/YYYY') }}
                             </template>
-                            <template v-slot:item.actions="{ item }">
-                                <v-btn text small color="secondary" @click="openViewEmployeeInformationDialog(item)">View</v-btn>
-                                <v-btn
-                                    text
-                                    small
-                                    color="secondary"
-                                    :to="{
-                                        name: 'edit investor',
-                                        params: { id: item.id_investor }
-                                    }"
-                                    >Update Profit</v-btn
-                                >                                
-                            </template>
+                            <!-- <template v-slot:item.actions="{ item }">
+                                <v-btn text small color="secondary" @click="openViewEmployeeInformationDialog(item)">View</v-btn>                                                               
+                            </template> -->
                         </v-data-table>
                     </v-col>
                 </v-row>
@@ -75,7 +74,7 @@ export default {
                 { text: 'Name', value: 'name' },
                 { text: 'ProjectId', value: 'projectId' },
                 { text: 'InvestmentPercentage', value: 'investmentPercentage' },                
-                { text: 'Actions', value: 'actions', sortable: false }
+                // { text: 'Actions', value: 'actions', sortable: false }
             ],
             showCreationEmployeDialog: false,
             investor:{},
@@ -89,8 +88,8 @@ export default {
         openCreationEmployeDialog() {
             this.showCreationEmployeDialog = true;
         },
-        openViewEmployeeInformationDialog(investor){                     
-            this.investor = investor;
+        openViewEmployeeInformationDialog(){                     
+            //this.investor = investor;
             this.viewInvestorDialog = true;
         },
         requestInvestors() {

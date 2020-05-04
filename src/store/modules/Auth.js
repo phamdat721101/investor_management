@@ -14,7 +14,7 @@ export default {
         login({
             commit
         }, payload) {
-            return httpClient.get(`/investor/1`, payload)
+            return true
         }
     },
     mutations: {

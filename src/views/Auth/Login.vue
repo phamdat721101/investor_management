@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         login() {
-            this.loading = true;
+            //this.loading = true;
             const payload = { email: this.email, password: this.password };
             this.$store
                 .dispatch('auth/login', payload)
@@ -59,13 +59,13 @@ export default {
                     setTimeout(() => {
                         window.localStorage.setItem(
                             'token',
-                            response.data.token
+                            'pqd'
                         );
                         window.localStorage.setItem(
                             'investors',
-                            JSON.stringify(response.data)
+                            'abc'
                         );
-                        this.$store.commit('auth/SET_INVESTOR', response.data);
+                        //this.$store.commit('auth/SET_INVESTOR', response.data);
                         this.$router.push('/Projects/list');
                     }, 1000);
                 })

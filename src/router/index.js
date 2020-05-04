@@ -59,7 +59,7 @@ const routes = [{
     }]
   },
   {
-    path: '/projects',
+    path: 'projects',
     component: () => import('@/layouts/Main'),
     children: [{
         path: 'list',
@@ -106,14 +106,13 @@ router.beforeEach((to, from, next) => {
 
   const token = window.localStorage.getItem('token');
 
-  if (to.meta.requiredAuth) {
+  if (to.meta.requiredAuth) {    
     if (token === null)
       next('/auth/login');
     else {
-      store.commit('auth/SET_INVESTOR', JSON.parse(window.localStorage.getItem('investor')));
+      store.commit('auth/SET_INVESTOR', 'abc');
       next();
     }
-
   } else {
     if (token === null)
       next();
